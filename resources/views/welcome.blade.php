@@ -1,0 +1,1 @@
+<h1>Welcome to the LMS</h1>
