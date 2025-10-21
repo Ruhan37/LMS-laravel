@@ -8,23 +8,38 @@
                 <div class="text-white">
                     <p style="font-size: 20px">Your account is inactive. Please wait admin will check & approved it</p>
                 </div>
-
             </div>
         @endif
 
-
+        {{-- Instructor Stats Cards --}}
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
             <div class="col">
                 <div class="card radius-10 border-start border-0 border-4 border-info">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div>
-                                <p class="mb-0 text-secondary">Total Orders</p>
-                                <h4 class="my-1 text-info">4805</h4>
-                                <p class="mb-0 font-13">+2.5% from last week</p>
+                                <p class="mb-0 text-secondary">Total Courses</p>
+                                <h4 class="my-1 text-info">{{ $totalCourses }}</h4>
+                                <p class="mb-0 font-13">Active: {{ $activeCourses }} | Pending: {{ $pendingCourses }}</p>
                             </div>
-                            <div class="widgets-icons-2 rounded-circle bg-gradient-blues text-white ms-auto"><i
-                                    class='bx bxs-cart'></i>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-blues text-white ms-auto">
+                                <i class='bx bx-book-open'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-4 border-success">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Total Students</p>
+                                <h4 class="my-1 text-success">{{ $totalStudents }}</h4>
+                                <p class="mb-0 font-13">Enrolled in your courses</p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
+                                <i class='bx bx-group'></i>
                             </div>
                         </div>
                     </div>
@@ -36,27 +51,11 @@
                         <div class="d-flex align-items-center">
                             <div>
                                 <p class="mb-0 text-secondary">Total Revenue</p>
-                                <h4 class="my-1 text-danger">$84,245</h4>
-                                <p class="mb-0 font-13">+5.4% from last week</p>
+                                <h4 class="my-1 text-danger">${{ number_format($totalRevenue, 2) }}</h4>
+                                <p class="mb-0 font-13">From course sales</p>
                             </div>
                             <div class="widgets-icons-2 rounded-circle bg-gradient-burning text-white ms-auto">
-                                <i class='bx bxs-wallet'></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card radius-10 border-start border-0 border-4 border-success">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <p class="mb-0 text-secondary">Bounce Rate</p>
-                                <h4 class="my-1 text-success">34.6%</h4>
-                                <p class="mb-0 font-13">-4.5% from last week</p>
-                            </div>
-                            <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                <i class='bx bxs-bar-chart-alt-2'></i>
+                                <i class='bx bx-dollar'></i>
                             </div>
                         </div>
                     </div>
@@ -67,12 +66,12 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div>
-                                <p class="mb-0 text-secondary">Total Customers</p>
-                                <h4 class="my-1 text-warning">8.4K</h4>
-                                <p class="mb-0 font-13">+8.4% from last week</p>
+                                <p class="mb-0 text-secondary">Active Courses</p>
+                                <h4 class="my-1 text-warning">{{ $activeCourses }}</h4>
+                                <p class="mb-0 font-13">Published & live</p>
                             </div>
                             <div class="widgets-icons-2 rounded-circle bg-gradient-orange text-white ms-auto">
-                                <i class='bx bxs-group'></i>
+                                <i class='bx bx-check-circle'></i>
                             </div>
                         </div>
                     </div>
@@ -81,139 +80,94 @@
         </div><!--end row-->
 
         <div class="row">
+            {{-- Popular Courses --}}
             <div class="col-12 col-lg-8 d-flex">
                 <div class="card radius-10 w-100">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <div>
-                                <h6 class="mb-0">Sales Overview</h6>
-                            </div>
-                            <div class="dropdown ms-auto">
-                                <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
-                                    data-bs-toggle="dropdown"><i
-                                        class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                    </li>
-                                </ul>
+                                <h6 class="mb-0">Your Popular Courses</h6>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex align-items-center ms-auto font-13 gap-2 mb-3">
-                            <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1"
-                                    style="color: #14abef"></i>Sales</span>
-                            <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1"
-                                    style="color: #ffc107"></i>Visits</span>
-                        </div>
-                        <div class="chart-container-1">
-                            <canvas id="chart1"></canvas>
-                        </div>
-                    </div>
-                    <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
-                        <div class="col">
-                            <div class="p-3">
-                                <h5 class="mb-0">24.15M</h5>
-                                <small class="mb-0">Overall Visitor <span> <i class="bx bx-up-arrow-alt align-middle"></i>
-                                        2.43%</span></small>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="p-3">
-                                <h5 class="mb-0">12:38</h5>
-                                <small class="mb-0">Visitor Duration <span> <i
-                                            class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="p-3">
-                                <h5 class="mb-0">639.82</h5>
-                                <small class="mb-0">Pages/Visit <span> <i class="bx bx-up-arrow-alt align-middle"></i>
-                                        5.62%</span></small>
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Course Name</th>
+                                        <th>Category</th>
+                                        <th>Students</th>
+                                        <th>Status</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($popularCourses as $course)
+                                        <tr>
+                                            <td>{{ $course->course_name }}</td>
+                                            <td>{{ $course->category->category_name ?? 'N/A' }}</td>
+                                            <td><span class="badge bg-primary">{{ $course->orders_count }}</span></td>
+                                            <td>
+                                                @if($course->status == 1)
+                                                    <span class="badge bg-success">Active</span>
+                                                @else
+                                                    <span class="badge bg-warning">Pending</span>
+                                                @endif
+                                            </td>
+                                            <td>${{ number_format($course->selling_price, 2) }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">No courses yet</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {{-- Quick Stats --}}
             <div class="col-12 col-lg-4 d-flex">
                 <div class="card radius-10 w-100">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <div>
-                                <h6 class="mb-0">Trending Products</h6>
-                            </div>
-                            <div class="dropdown ms-auto">
-                                <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
-                                    data-bs-toggle="dropdown"><i
-                                        class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                    </li>
-                                </ul>
+                                <h6 class="mb-0">Course Statistics</h6>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="chart-container-2">
-                            <canvas id="chart2"></canvas>
+                            <canvas id="courseChart"></canvas>
                         </div>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li
-                            class="list-group-item d-flex bg-transparent justify-content-between align-items-center border-top">
-                            Jeans <span class="badge bg-success rounded-pill">25</span>
+                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center border-top">
+                            Total Courses <span class="badge bg-primary rounded-pill">{{ $totalCourses }}</span>
                         </li>
                         <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            T-Shirts <span class="badge bg-danger rounded-pill">10</span>
+                            Active <span class="badge bg-success rounded-pill">{{ $activeCourses }}</span>
                         </li>
                         <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            Shoes <span class="badge bg-primary rounded-pill">65</span>
+                            Pending <span class="badge bg-warning rounded-pill">{{ $pendingCourses }}</span>
                         </li>
                         <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            Lingerie <span class="badge bg-warning text-dark rounded-pill">14</span>
+                            Total Students <span class="badge bg-info rounded-pill">{{ $totalStudents }}</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div><!--end row-->
 
+        {{-- Recent Enrollments --}}
         <div class="card radius-10">
             <div class="card-header">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h6 class="mb-0">Recent Orders</h6>
-                    </div>
-                    <div class="dropdown ms-auto">
-                        <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i
-                                class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="javascript:;">Action</a>
-                            </li>
-                            <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                            </li>
-                        </ul>
+                        <h6 class="mb-0">Recent Enrollments</h6>
                     </div>
                 </div>
             </div>
@@ -222,46 +176,62 @@
                     <table class="table align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>Product</th>
-                                <th>Photo</th>
-                                <th>Product ID</th>
-                                <th>Status</th>
+                                <th>Student</th>
+                                <th>Course</th>
                                 <th>Amount</th>
                                 <th>Date</th>
-                                <th>Shipping</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Iphone 5</td>
-                                <td><img src="{{ asset('backend/assets/images/products/01.png') }}" class="product-img-2"
-                                        alt="product img"></td>
-                                <td>#9405822</td>
-                                <td><span class="badge bg-gradient-quepal text-white shadow-sm w-100">Paid</span>
-                                </td>
-                                <td>$1250.00</td>
-                                <td>03 Feb 2020</td>
-                                <td>
-                                    <div class="progress" style="height: 6px;">
-                                        <div class="progress-bar bg-gradient-quepal" role="progressbar"
-                                            style="width: 100%"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-
-
+                            @forelse($recentEnrollments as $enrollment)
+                                <tr>
+                                    <td>{{ $enrollment->user->name }}</td>
+                                    <td>{{ $enrollment->course->course_name }}</td>
+                                    <td>${{ number_format($enrollment->price, 2) }}</td>
+                                    <td>{{ $enrollment->created_at->format('d M Y') }}</td>
+                                    <td>
+                                        <span class="badge bg-gradient-quepal text-white shadow-sm">Enrolled</span>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">No enrollments yet</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-
-
-
-
-
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('backend/plugins/chartjs/js/chart.js') }}"></script>
+    <script>
+        // Course Statistics Doughnut Chart
+        var ctx = document.getElementById('courseChart').getContext('2d');
+        var courseChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Active', 'Pending'],
+                datasets: [{
+                    data: [{{ $activeCourses }}, {{ $pendingCourses }}],
+                    backgroundColor: ['#0d6efd', '#ffc107'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                cutout: '75%',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
