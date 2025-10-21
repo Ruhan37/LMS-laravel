@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Traits\FileUploadTrait; // Import the FileUploadTrait
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ProfileRepository
 {
@@ -23,7 +24,15 @@ class ProfileRepository
 
         // Handle file uploads manually
         if ($photo) {
-            $data['photo'] = $this->uploadFile($photo, 'user', $profile->photo);
+            try {
+                $data['photo'] = $this->uploadFile($photo, 'user', $profile->photo);
+            } catch (\Exception $e) {
+                Log::error('Profile photo upload failed', [
+                    'user_id' => $profile->id,
+                    'error' => $e->getMessage()
+                ]);
+                throw new \Exception('Photo failed to upload: ' . $e->getMessage());
+            }
         }
 
         // Manually assign other fields from $data

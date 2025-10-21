@@ -14,6 +14,10 @@ class InstructorController extends Controller
 
     }
 
+    public function register(){
+        return view('backend.instructor.register.index');
+    }
+
     public function dashboard()
     {
         return view('backend.instructor.dashboard.index');

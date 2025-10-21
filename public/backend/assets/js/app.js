@@ -1,6 +1,13 @@
 $(function() {
 	"use strict";
-	new PerfectScrollbar(".header-message-list"), new PerfectScrollbar(".header-notifications-list"),
+
+	// Initialize PerfectScrollbar only if elements exist
+	if ($(".header-message-list").length) {
+		new PerfectScrollbar(".header-message-list");
+	}
+	if ($(".header-notifications-list").length) {
+		new PerfectScrollbar(".header-notifications-list");
+	}
 
 
 	    $(".mobile-search-icon").on("click", function() {
@@ -33,11 +40,11 @@ $(function() {
                 if ($("html").hasClass("dark-theme")) {
                     $("html").removeClass("dark-theme").addClass("light-theme");
                     $(".dark-mode-icon i").attr("class", "bx bx-moon");
-                    localStorage.setItem("theme", "light"); // লাইট মোড সংরক্ষণ
+                    localStorage.setItem("theme", "light");
                 } else {
                     $("html").removeClass("light-theme").addClass("dark-theme");
                     $(".dark-mode-icon i").attr("class", "bx bx-sun");
-                    localStorage.setItem("theme", "dark"); // ডার্ক মোড সংরক্ষণ
+                    localStorage.setItem("theme", "dark");
                 }
             });
         });

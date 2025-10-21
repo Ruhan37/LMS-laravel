@@ -1,11 +1,315 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎓 YouTubeLMS - Learning Management System
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<img src="https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 11">
+<img src="https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.2+">
+<img src="https://img.shields.io/badge/Bootstrap-5.x-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap 5">
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+<img src="https://img.shields.io/badge/Status-Ready-success?style=for-the-badge" alt="Status">
 </p>
+
+A modern, feature-rich Learning Management System built with Laravel 11, featuring both **Aduca** (Frontend) and **Rocker** (Backend) premium themes.
+
+---
+
+## ✨ Features
+
+### 👨‍💼 Admin Panel
+- ✅ Complete dashboard with analytics
+- ✅ Category & Subcategory management
+- ✅ Instructor approval system
+- ✅ Course management & oversight
+- ✅ Order management & reporting
+- ✅ Site settings & configuration
+- ✅ SMTP, Stripe, Google OAuth integration
+- ✅ Dark/Light theme support
+
+### 👨‍🏫 Instructor Panel
+- ✅ Earnings dashboard
+- ✅ Course creation & management
+- ✅ Section & lecture management
+- ✅ Video upload support
+- ✅ Coupon management
+- ✅ Student enrollment tracking
+
+### 👨‍🎓 Student Features
+- ✅ Course browsing & enrollment
+- ✅ Wishlist & cart system
+- ✅ Stripe payment integration
+- ✅ Video course player
+- ✅ Progress tracking
+- ✅ Certificate generation
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- PHP 8.2 or higher
+- Composer
+- Node.js & NPM
+- MySQL
+- XAMPP/MAMP/WAMP
+
+### Installation
+
+1. **Clone the repository**
+```bash
+cd /path/to/htdocs
+git clone <repository-url> YouTubeLMS
+cd YouTubeLMS
+```
+
+2. **Install dependencies**
+```bash
+composer install
+npm install
+```
+
+3. **Configure environment**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. **Update .env file**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=4306
+DB_DATABASE=youtube_lms
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+5. **Run migrations & seeders**
+```bash
+php artisan migrate:fresh --seed
+```
+
+6. **Build assets**
+```bash
+npm run build
+```
+
+7. **Start development server**
+```bash
+php artisan serve
+```
+
+8. **Access the application**
+```
+URL: http://127.0.0.1:8000
+```
+
+---
+
+## 🔑 Default Credentials
+
+| Role | Email | Password | Login URL |
+|------|-------|----------|-----------|
+| **Admin** | admin@example.com | password | /admin/login |
+| **Instructor** | instructor@example.com | password | /instructor/login |
+| **Student** | user@example.com | password | /login |
+
+---
+
+## 📁 Project Structure
+
+```
+YouTubeLMS/
+├── app/
+│   ├── Http/Controllers/     # Controllers (Admin, Instructor, User)
+│   ├── Models/               # Eloquent models
+│   ├── Repositories/         # Repository pattern
+│   ├── Services/             # Business logic
+│   └── Helpers/              # Helper functions
+├── resources/
+│   └── views/
+│       ├── frontend/         # Aduca theme (Public pages)
+│       ├── backend/          # Rocker theme (Admin/Instructor)
+│       ├── layouts/          # Master layouts
+│       └── partials/         # Reusable components
+├── public/
+│   ├── frontend/             # Aduca theme assets
+│   ├── backend/              # Rocker theme assets
+│   └── build/                # Compiled Vite assets
+├── database/
+│   ├── migrations/           # Database migrations
+│   └── seeders/              # Database seeders
+└── routes/
+    ├── web.php               # Web routes
+    └── api.php               # API routes
+```
+
+---
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Framework:** Laravel 11
+- **Language:** PHP 8.2+
+- **Database:** MySQL
+- **Authentication:** Laravel Breeze
+- **Architecture:** Repository + Service Pattern
+
+### Frontend
+- **Frontend Theme:** Aduca (Bootstrap 5)
+- **Backend Theme:** Rocker (Bootstrap 5)
+- **Icons:** Line Awesome, Boxicons
+- **JavaScript:** jQuery, Alpine.js
+- **Build Tool:** Vite
+- **CSS:** Tailwind CSS, Bootstrap 5
+
+### Plugins & Libraries
+- **Charts:** Chart.js
+- **Tables:** DataTables
+- **Video Player:** Plyr
+- **Carousels:** Owl Carousel
+- **Payment:** Stripe
+- **Email:** SMTP Configuration
+
+---
+
+## 📚 Documentation
+
+Comprehensive testing and setup documentation available:
+
+- **[TESTING_COMPLETE.md](TESTING_COMPLETE.md)** - Integration completion summary
+- **[TEST_REPORT.md](TEST_REPORT.md)** - Detailed test report
+- **[QUICK_TEST_GUIDE.md](QUICK_TEST_GUIDE.md)** - 5-minute testing guide
+- **[VERIFICATION_CHECKLIST.md](VERIFICATION_CHECKLIST.md)** - Complete verification checklist
+
+---
+
+## 🧪 Testing Status
+
+### ✅ Automated Tests: 7/7 Passed
+
+- ✅ Database migrations & seeding
+- ✅ Asset compilation (Vite)
+- ✅ Route configuration
+- ✅ Authentication system
+- ✅ Theme integration
+- ✅ Code quality checks
+- ✅ Error detection & fixes
+
+**Integration Status:** 🟢 **100% Complete**
+
+---
+
+## 🎨 Themes
+
+### Frontend Theme: Aduca
+- Modern, responsive design
+- Bootstrap 5 framework
+- Line Awesome icons
+- Owl Carousel sliders
+- Plyr video player
+- Isotope filtering
+
+### Backend Theme: Rocker
+- Clean admin interface
+- Dark/Light mode
+- MetisMenu sidebar
+- Chart.js analytics
+- DataTables integration
+- Perfect Scrollbar
+
+---
+
+## 🔐 Security
+
+- CSRF protection enabled
+- Password hashing (bcrypt)
+- Role-based access control
+- Middleware protection
+- SQL injection prevention
+- XSS protection
+
+---
+
+## 📊 Database Schema
+
+21 tables including:
+- Users (Multi-role authentication)
+- Categories & Subcategories
+- Courses, Sections, Lectures
+- Cart & Wishlist
+- Orders & Payments
+- Coupons
+- Settings (SMTP, Stripe, Google)
+
+---
+
+## 🚀 Deployment
+
+### Production Optimization
+```bash
+# Cache configuration
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Build assets
+npm run build
+
+# Set permissions
+chmod -R 755 storage bootstrap/cache
+```
+
+### Environment Variables
+Update `.env` for production:
+- Set `APP_ENV=production`
+- Set `APP_DEBUG=false`
+- Update database credentials
+- Configure mail settings
+- Add Stripe API keys
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📝 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+## 🙏 Credits
+
+- **Laravel Framework** - [laravel.com](https://laravel.com)
+- **Aduca Theme** - Frontend design
+- **Rocker Theme** - Backend admin panel
+- **Bootstrap** - UI framework
+- **Chart.js** - Analytics charts
+- **Stripe** - Payment processing
+
+---
+
+## 📞 Support
+
+For issues and questions:
+- Check documentation files
+- Review `storage/logs/laravel.log`
+- Open browser console (F12)
+- Create an issue on GitHub
+
+---
+
+<p align="center">Made with ❤️ using Laravel 11</p>
+
+---
 
 ## About Laravel
 

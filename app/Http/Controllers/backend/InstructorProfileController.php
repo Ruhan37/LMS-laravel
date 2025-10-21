@@ -27,10 +27,13 @@ class InstructorProfileController extends Controller
 
     public function store(ProfileRequest $request)
     {
-
-        // Pass data and files to the service
-        $this->profileService->saveProfile($request->validated(), $request->file('photo'));
-        return redirect()->back()->with('success', 'Profile Updated successfully');
+        try {
+            // Pass data and files to the service
+            $this->profileService->saveProfile($request->validated(), $request->file('photo'));
+            return redirect()->back()->with('success', 'Profile Updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function setting()
@@ -40,7 +43,7 @@ class InstructorProfileController extends Controller
 
     public function passwordSetting(ProfilePasswordUpdateRequest $request)
     {
-        
+
         // Pass data and files to the service
         $this->passwordUpdateService->updatePassword($request->validated());
         return redirect()->back()->with('success', 'Password Updated successfully');

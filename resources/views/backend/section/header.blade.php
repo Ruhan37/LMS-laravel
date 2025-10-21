@@ -21,87 +21,74 @@
                         </a>
                     </li>
 
-
+                    @php
+                        $notifications = \App\Models\Notification::where('user_id', auth()->id())
+                            ->orderBy('created_at', 'desc')
+                            ->limit(10)
+                            ->get();
+                        $unreadCount = \App\Models\Notification::where('user_id', auth()->id())
+                            ->where('is_read', false)
+                            ->count();
+                    @endphp
 
                     <li class="nav-item dropdown dropdown-large">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative"
-                            href="#" data-bs-toggle="dropdown"><span class="alert-count">7</span>
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
+                            data-bs-toggle="dropdown">
+                            <span class="alert-count">{{ $unreadCount > 0 ? $unreadCount : '' }}</span>
                             <i class='bx bx-bell'></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a href="javascript:;">
                                 <div class="msg-header">
                                     <p class="msg-header-title">Notifications</p>
-                                    <p class="msg-header-badge">8 New</p>
+                                    @if($unreadCount > 0)
+                                        <p class="msg-header-badge">{{ $unreadCount }} New</p>
+                                    @endif
                                 </div>
                             </a>
                             <div class="header-notifications-list">
-                                <a class="dropdown-item" href="javascript:;">
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-online">
-                                            <img src="{{asset('backend/assets/images/avatars/avatar-1.png')}}" class="msg-avatar"
-                                                alt="user avatar">
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <h6 class="msg-name">Daisy Anderson<span
-                                                    class="msg-time float-end">5 sec
-                                                    ago</span></h6>
-                                            <p class="msg-info">The standard chunk of lorem</p>
-                                        </div>
-                                    </div>
-                                </a>
-
-
-
-                            </div>
-
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown dropdown-large">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative"
-                            href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="alert-count">8</span>
-                            <i class='bx bx-shopping-bag'></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="javascript:;">
-                                <div class="msg-header">
-                                    <p class="msg-header-title">My Cart</p>
-                                    <p class="msg-header-badge">10 Items</p>
-                                </div>
-                            </a>
-                            <div class="header-message-list">
-                                <a class="dropdown-item" href="javascript:;">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="position-relative">
-                                            <div class="cart-product rounded-circle bg-light">
-                                                <img src="{{asset('backend/assets/images/products/11.png')}}" class=""
-                                                    alt="product image">
+                                @forelse($notifications as $notification)
+                                    <a class="dropdown-item notification-item"
+                                       href="{{ $notification->link }}"
+                                       data-id="{{ $notification->id }}"
+                                       style="{{ !$notification->is_read ? 'background-color: #f0f7ff;' : '' }}">
+                                        <div class="d-flex align-items-center">
+                                            <div class="notify bg-light-primary text-primary">
+                                                <i class="bx bx-book-add"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="msg-name">{{ $notification->title }}
+                                                    @if(!$notification->is_read)
+                                                        <span class="badge bg-primary ms-1">New</span>
+                                                    @endif
+                                                </h6>
+                                                <p class="msg-info">{{ $notification->message }}</p>
+                                                <p class="msg-time">{{ $notification->created_at->diffForHumans() }}</p>
                                             </div>
                                         </div>
-                                        <div class="flex-grow-1">
-                                            <h6 class="cart-product-title mb-0">Men White T-Shirt</h6>
-                                            <p class="cart-product-price mb-0">1 X $29.00</p>
-                                        </div>
-                                        <div class="">
-                                            <p class="cart-price mb-0">$250</p>
-                                        </div>
-                                        <div class="cart-product-cancel"><i class="bx bx-x"></i>
-                                        </div>
+                                    </a>
+                                @empty
+                                    <div class="text-center py-4">
+                                        <p class="mb-0">No notifications yet</p>
+                                    </div>
+                                @endforelse
+                            </div>
+                            @if($notifications->count() > 0)
+                                <a href="javascript:;" id="mark-all-read">
+                                    <div class="text-center msg-footer">
+                                        <button class="btn btn-primary w-100">Mark All as Read</button>
                                     </div>
                                 </a>
-
-
-                            </div>
-
+                            @endif
                         </div>
                     </li>
+
                 </ul>
             </div>
             <div class="user-box dropdown px-3">
                 <a class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret"
                     href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{asset('backend/assets/images/avatars/avatar-2.png')}}" class="user-img" alt="user avatar">
+                    <img src="{{ auth()->user()->photo ? auth()->user()->photo : asset('backend/assets/images/avatars/avatar-2.png') }}" class="user-img" alt="user avatar">
                     <div class="user-info">
                         <p class="user-name mb-0">{{auth()->user()->name}}</p>
                         <p class="designattion mb-0">{{auth()->user()->role}}</p>

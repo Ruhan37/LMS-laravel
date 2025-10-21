@@ -10,7 +10,7 @@
 <script src="{{ asset('backend/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/chartjs/js/chart.js') }}"></script>
-<script src="{{ asset('backend/assets/js/index.js') }}"></script>
+<!-- Removed index.js - using real chart data from dashboard blade file instead -->
 
 <script src="{{ asset('backend/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>

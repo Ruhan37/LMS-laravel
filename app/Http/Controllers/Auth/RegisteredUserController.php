@@ -35,17 +35,30 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Determine role - default to 'user' if not specified
+        $role = $request->input('role', 'user');
+
+        // Set status based on role
+        $status = ($role === 'instructor') ? '0' : '1'; // Instructor needs approval
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
-
+            'role' => $role,
+            'status' => $status,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('user.dashboard', absolute: false));
+        // Redirect based on role
+        if ($role === 'instructor') {
+            return redirect()->route('instructor.dashboard')->with('success', 'Registration successful! Your account is pending approval.');
+        }
+
+        return redirect()->route('user.dashboard');
     }
 }

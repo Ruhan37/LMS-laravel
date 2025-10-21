@@ -7,6 +7,8 @@ use App\Http\Requests\CourseRequest;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseGoal;
+use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CourseService;
@@ -59,6 +61,19 @@ class CourseController extends Controller
         //Manage Course Goal
         if (!empty($validatedData['course_goals'])) {
             $this->courseService->createCourseGoals($course->id, $validatedData['course_goals']);
+        }
+
+        // Create notification for all admins
+        $admins = User::where('role', 'admin')->get();
+        foreach ($admins as $admin) {
+            Notification::create([
+                'type' => 'course_created',
+                'user_id' => $admin->id,
+                'title' => 'New Course Submitted',
+                'message' => Auth::user()->name . ' has submitted a new course: ' . $course->course_name,
+                'link' => route('admin.course.index'),
+                'is_read' => false
+            ]);
         }
 
         return back()->with('success', 'Course created successfully!');

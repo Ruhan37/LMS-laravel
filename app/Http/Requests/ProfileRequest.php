@@ -28,7 +28,7 @@ class ProfileRequest extends FormRequest
             'email' => 'required|email|unique:users,email,' . $this->user()->id,
             'phone' => 'nullable|string|max:15',
             'address' => 'nullable|string|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif, svg, webp|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'bio' => 'nullable|string|max:65535',
             'city' => 'nullable',
             'country' => 'nullable',

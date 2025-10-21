@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Test</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        body { transition: all 0.3s; padding: 50px; font-family: Arial; }
+        .light-theme { background: white; color: black; }
+        .dark-theme { background: #1a1a1a; color: white; }
+        .dark-mode-icon { cursor: pointer; font-size: 24px; padding: 10px; }
+        #status { margin-top: 20px; padding: 20px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body class="light-theme">
+    <h1>Dark Mode Toggle Test</h1>
+    <div class="dark-mode">
+        <a class="dark-mode-icon" href="javascript:;">
+            <i class='bx bx-moon'></i>
+        </a>
+    </div>
+    <div id="status">
+        <h3>Status:</h3>
+        <p>Current theme: <span id="current-theme">light-theme</span></p>
+        <p>LocalStorage: <span id="storage-value">-</span></p>
+        <p>Icon class: <span id="icon-class">bx bx-moon</span></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Same logic as our implementation
+        $(window).on('load', function() {
+            // Load saved theme
+            var savedTheme = localStorage.getItem('theme');
+            updateStatus();
+            
+            if (savedTheme === 'dark-theme') {
+                $('html').attr('class', 'dark-theme');
+                $('body').attr('class', 'dark-theme');
+                $('.dark-mode-icon i').attr('class', 'bx bx-sun');
+                updateStatus();
+            } else if (savedTheme === 'light-theme') {
+                $('html').attr('class', 'light-theme');
+                $('body').attr('class', 'light-theme');
+                $('.dark-mode-icon i').attr('class', 'bx bx-moon');
+                updateStatus();
+            }
+
+            // Override toggle
+            setTimeout(function() {
+                $('.dark-mode').off('click').on('click', function(e) {
+                    e.preventDefault();
+                    console.log('Dark mode clicked!');
+                    if ($('.dark-mode-icon i').attr('class') == 'bx bx-sun') {
+                        $('.dark-mode-icon i').attr('class', 'bx bx-moon');
+                        $('html').attr('class', 'light-theme');
+                        $('body').attr('class', 'light-theme');
+                        localStorage.setItem('theme', 'light-theme');
+                        console.log('Switched to light theme');
+                    } else {
+                        $('.dark-mode-icon i').attr('class', 'bx bx-sun');
+                        $('html').attr('class', 'dark-theme');
+                        $('body').attr('class', 'dark-theme');
+                        localStorage.setItem('theme', 'dark-theme');
+                        console.log('Switched to dark theme');
+                    }
+                    updateStatus();
+                });
+            }, 100);
+        });
+
+        function updateStatus() {
+            $('#current-theme').text($('body').attr('class'));
+            $('#storage-value').text(localStorage.getItem('theme') || 'not set');
+            $('#icon-class').text($('.dark-mode-icon i').attr('class'));
+        }
+    </script>
+</body>
+</html>

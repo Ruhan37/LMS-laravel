@@ -14,6 +14,7 @@ use App\Http\Controllers\backend\CourseController;
 use App\Http\Controllers\backend\CourseSectionController;
 use App\Http\Controllers\backend\InstructorController;
 use App\Http\Controllers\backend\InstructorProfileController;
+use App\Http\Controllers\backend\NotificationController;
 use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\backend\PartnerController;
 use App\Http\Controllers\backend\SettingController;
@@ -99,6 +100,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
      /* Manage Site Seetings */
     Route::resource('site-setting', SiteSettingController::class);
 
+    /* Notification Routes */
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
 
 
 });
