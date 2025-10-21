@@ -151,6 +151,11 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::get('/wishlist-data', [WishlistController::class, 'getWishlist']);
     Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+
+    /* My Courses, Messages, Purchase History */
+    Route::get('/my-courses', [UserController::class, 'myCourses'])->name('my.courses');
+    Route::get('/messages', [UserController::class, 'messages'])->name('messages');
+    Route::get('/purchase-history', [UserController::class, 'purchaseHistory'])->name('purchase.history');
 });
 
 
@@ -158,6 +163,7 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
 
 Route::get('/', [FrontendDashboardController::class, 'home'])->name('frontend.home');
 Route::get('/course-details/{slug}', [FrontendDashboardController::class, 'view'])->name('course-details');
+Route::get('/search', [FrontendDashboardController::class, 'search'])->name('search');
 
 /* wishlist controller  */
 

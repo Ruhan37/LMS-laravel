@@ -32,7 +32,7 @@ class AdminCourseController extends Controller
             if ($oldStatus != $request->status) {
                 $statusText = $request->status == 1 ? 'approved' : 'rejected';
                 $statusIcon = $request->status == 1 ? '✅' : '❌';
-                
+
                 Notification::create([
                     'type' => 'course_status_changed',
                     'user_id' => $course->instructor_id,
@@ -96,6 +96,6 @@ class AdminCourseController extends Controller
      */
      public function destroy(string $id)
     {
-       
+
     }
 }

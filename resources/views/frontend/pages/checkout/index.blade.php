@@ -100,7 +100,21 @@
                                 <div class="divider"><span></span></div>
                                 <div class="payment-option-wrap">
 
-
+                                    <!-- Mock Payment for Testing -->
+                                    <div class="payment-tab">
+                                        <div class="payment-tab-toggle">
+                                            <input id="mock" name="payment_type" type="radio" value="mock" checked>
+                                            <label for="mock">Mock Payment (Testing)</label>
+                                            <span class="badge badge-warning ml-2">Test Mode</span>
+                                        </div>
+                                        <div class="payment-tab-content">
+                                            <div class="alert alert-info">
+                                                <strong>🎯 Test Payment Method</strong><br>
+                                                Your account balance: <strong>${{ number_format(auth()->user()->wallet_balance ?? 500, 2) }}</strong><br>
+                                                <small class="text-muted">This is a mock payment for testing. No real money will be charged.</small>
+                                            </div>
+                                        </div>
+                                    </div><!-- end payment-tab -->
 
                                     <div class="payment-tab">
 

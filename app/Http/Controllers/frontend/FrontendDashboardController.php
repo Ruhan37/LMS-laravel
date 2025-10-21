@@ -61,4 +61,27 @@ class FrontendDashboardController extends Controller
 
         return view('frontend.pages.course-details.index', compact('course', 'total_lecture', 'course_content', 'similarCourses', 'all_category', 'more_course_instructor', 'total_minutes', 'total_lecture_duration'));
     }
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        if (empty($searchTerm)) {
+            return redirect()->route('frontend.home');
+        }
+
+        // Search courses by name, title, or description
+        $courses = Course::where('status', 1)
+            ->where(function($query) use ($searchTerm) {
+                $query->where('course_name', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('course_title', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('description', 'like', '%' . $searchTerm . '%');
+            })
+            ->with('category', 'user')
+            ->paginate(12);
+
+        $categories = Category::all();
+
+        return view('frontend.pages.search.index', compact('courses', 'searchTerm', 'categories'));
+    }
 }

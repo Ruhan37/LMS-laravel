@@ -28,7 +28,22 @@
                 </div>
                 <div class="pl-4">
                     <p class="card-text fs-18">Enrolled Courses</p>
-                    <h5 class="card-title pt-2 fs-26">5</h5>
+                    <h5 class="card-title pt-2 fs-26">{{ $enrolledCoursesCount ?? 0 }}</h5>
+                </div>
+            </div><!-- end card-body -->
+        </div><!-- end card -->
+    </div><!-- end col-lg-4 -->
+    <div class="col-lg-4 responsive-column-half">
+        <div class="card card-item dashboard-info-card">
+            <div class="card-body d-flex align-items-center">
+                <div class="icon-element flex-shrink-0 bg-4 text-white">
+                    <svg class="svg-icon-color-white" width="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.41 18.09V20H10.74V18.07C9.03 17.71 7.58 16.61 7.47 14.67H9.43C9.53 15.82 10.29 16.56 12.08 16.56C14.05 16.56 14.54 15.73 14.54 15.13C14.54 14.37 14.04 13.74 11.83 13.19C9.22 12.54 7.83 11.45 7.83 9.59C7.83 7.96 9.08 6.81 10.74 6.43V4.5H13.41V6.45C15.27 6.91 16.2 8.33 16.27 9.92H14.31C14.26 8.76 13.61 8.03 12.08 8.03C10.58 8.03 9.85 8.71 9.85 9.48C9.85 10.22 10.46 10.74 12.49 11.25C14.52 11.76 16.56 12.62 16.56 15.09C16.55 16.85 15.28 17.76 13.41 18.09Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="pl-4">
+                    <p class="card-text fs-18">Wallet Balance</p>
+                    <h5 class="card-title pt-2 fs-26">${{ number_format(auth()->user()->wallet_balance ?? 0, 2) }}</h5>
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->
@@ -79,7 +94,7 @@
                 </div>
                 <div class="pl-4">
                     <p class="card-text fs-18">Wishlist Courses</p>
-                    <h5 class="card-title pt-2 fs-26">10</h5>
+                    <h5 class="card-title pt-2 fs-26">{{ $wishlistCount ?? 0 }}</h5>
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->
@@ -130,7 +145,7 @@
                 </div>
                 <div class="pl-4">
                     <p class="card-text fs-18">Total Purchase Amount</p>
-                    <h5 class="card-title pt-2 fs-26">1000</h5>
+                    <h5 class="card-title pt-2 fs-26">${{ number_format($totalPurchaseAmount ?? 0, 2) }}</h5>
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->

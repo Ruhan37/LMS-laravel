@@ -6,7 +6,7 @@
                     <div class="col-lg-12">
                         <div class="logo-box logo--box">
                             <a href="index.html" class="logo">
-                                <img src="{{asset('frontend/images/logo.png')}}" alt="logo">
+                                <img src="{{asset('frontend/images/logo.png')}}" alt="logo" style="max-height: 40px; width: auto;">
 
                             </a>
                             <div class="user-btn-action">
@@ -25,10 +25,10 @@
                             </div>
                         </div><!-- end logo-box -->
                         <div class="menu-wrapper">
-                            <form method="post" class="mr-auto ml-0">
+                            <form method="get" action="{{ route('search') }}" class="mr-auto ml-0">
                                 <div class="form-group mb-0">
                                     <input class="form-control form--control form--control-gray pl-3" type="text"
-                                        name="search" placeholder="Search for anything">
+                                        name="search" placeholder="Search for courses..." value="{{ request('search') }}">
                                     <span class="la la-search search-icon"></span>
                                 </div>
                             </form>
@@ -39,53 +39,36 @@
                                     </div>
                                     <div class="shop-cart course-cart pr-3 mr-3 border-right border-right-gray">
                                         <ul>
-
                                             <li>
                                                 <p class="shop-cart-btn d-flex align-items-center fs-16">
                                                     My Courses
                                                     <span class="la la-angle-down fs-13 ml-1"></span>
                                                 </p>
                                                 <ul class="cart-dropdown-menu after-none">
-                                                    <li class="media media-card">
-                                                        <a href="lesson-details.html" class="media-img">
-                                                            <img class="mr-3" src="{{asset('frontend/images/small-img-3.jpg')}}"
-                                                                alt="Course thumbnail image">
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <h5><a href="lesson-details.html">The Complete
-                                                                    JavaScript Course 2021: From Zero to Expert!</a>
-                                                            </h5>
-                                                            <div class="skillbar-box pt-3">
-                                                                <div class="skillbar skillbar-skillbar"
-                                                                    data-percent="36%">
-                                                                    <div class="skillbar-bar skillbar--bar bg-1">
+                                                    @forelse($enrolledCourses ?? [] as $enrollment)
+                                                        <li class="media media-card">
+                                                            <a href="{{ route('course-details', $enrollment->course->course_name_slug) }}" class="media-img">
+                                                                <img class="mr-3" src="{{ $enrollment->course->course_image ? asset($enrollment->course->course_image) : asset('frontend/images/small-img-3.jpg') }}"
+                                                                    alt="Course thumbnail image">
+                                                            </a>
+                                                            <div class="media-body">
+                                                                <h5><a href="{{ route('course-details', $enrollment->course->course_name_slug) }}">{{ $enrollment->course->course_name }}</a></h5>
+                                                                <div class="skillbar-box pt-3">
+                                                                    <div class="skillbar skillbar-skillbar" data-percent="0%">
+                                                                        <div class="skillbar-bar skillbar--bar bg-1"></div>
                                                                     </div>
-                                                                </div><!-- End Skill Bar -->
-                                                            </div><!-- End skillbar-box -->
-                                                        </div>
-                                                    </li>
-                                                    <li class="media media-card">
-                                                        <a href="lesson-details.html" class="media-img">
-                                                            <img class="mr-3" src="{{asset('frontend/images/small-img-4.jpg')}}"
-                                                                alt="Course thumbnail image">
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <h5><a href="lesson-details.html">The Complete
-                                                                    JavaScript Course 2021: From Zero to Expert!</a>
-                                                            </h5>
-                                                            <div class="skillbar-box pt-3">
-                                                                <div class="skillbar skillbar-skillbar"
-                                                                    data-percent="77%">
-                                                                    <div class="skillbar-bar skillbar--bar bg-1">
-                                                                    </div>
-                                                                </div><!-- End Skill Bar -->
-                                                            </div><!-- End skillbar-box -->
-                                                        </div>
-                                                    </li>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    @empty
+                                                        <li class="media media-card">
+                                                            <div class="media-body text-center py-3">
+                                                                <p class="text-muted">No enrolled courses yet</p>
+                                                            </div>
+                                                        </li>
+                                                    @endforelse
                                                     <li>
-                                                        <a href="my-courses.html" class="btn theme-btn w-100">Got
-                                                            to my course <i
-                                                                class="la la-arrow-right icon ml-1"></i></a>
+                                                        <a href="{{ route('user.my.courses') }}" class="btn theme-btn w-100">Go to my courses <i class="la la-arrow-right icon ml-1"></i></a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -110,70 +93,46 @@
 
 
 
-                                    <div
-                                        class="shop-cart notification-cart pr-3 mr-3 border-right border-right-gray">
+                                    <div class="shop-cart notification-cart pr-3 mr-3 border-right border-right-gray">
                                         <ul>
                                             <li>
                                                 <p class="shop-cart-btn">
                                                     <i class="la la-bell"></i>
-                                                    <span class="dot-status bg-1"></span>
+                                                    @if(($unreadNotifications ?? 0) > 0)
+                                                        <span class="dot-status bg-1"></span>
+                                                    @endif
                                                 </p>
-                                                <ul
-                                                    class="cart-dropdown-menu after-none p-0 notification-dropdown-menu">
-                                                    <li
-                                                        class="menu-heading-block d-flex align-items-center justify-content-between">
+                                                <ul class="cart-dropdown-menu after-none p-0 notification-dropdown-menu">
+                                                    <li class="menu-heading-block d-flex align-items-center justify-content-between">
                                                         <h4>Notifications</h4>
-                                                        <span class="ribbon fs-14">18</span>
+                                                        @if(($unreadNotifications ?? 0) > 0)
+                                                            <span class="ribbon fs-14">{{ $unreadNotifications }}</span>
+                                                        @endif
                                                     </li>
                                                     <li>
                                                         <div class="notification-body">
-                                                            <a href="dashboard.html"
-                                                                class="media media-card align-items-center">
-                                                                <div
-                                                                    class="icon-element icon-element-sm flex-shrink-0 bg-1 mr-3 text-white">
-                                                                    <i class="la la-bolt"></i>
+                                                            @forelse($notifications ?? [] as $notification)
+                                                                <a href="{{ $notification->link ?? '#' }}" class="media media-card align-items-center {{ !$notification->is_read ? 'bg-light' : '' }}">
+                                                                    <div class="icon-element icon-element-sm flex-shrink-0 {{ $notification->is_read ? 'bg-gray' : 'bg-1' }} mr-3 text-white">
+                                                                        <i class="la la-bell"></i>
+                                                                    </div>
+                                                                    <div class="media-body">
+                                                                        <h5>{{ $notification->title }}</h5>
+                                                                        <span class="d-block lh-18 pt-1 text-gray fs-13">{{ $notification->created_at->diffForHumans() }}</span>
+                                                                    </div>
+                                                                </a>
+                                                            @empty
+                                                                <div class="text-center py-3">
+                                                                    <p class="text-muted">No notifications</p>
                                                                 </div>
-                                                                <div class="media-body">
-                                                                    <h5>Your resume updated!</h5>
-                                                                    <span
-                                                                        class="d-block lh-18 pt-1 text-gray fs-13">1
-                                                                        hour ago</span>
-                                                                </div>
-                                                            </a>
-                                                            <a href="dashboard.html"
-                                                                class="media media-card align-items-center">
-                                                                <div
-                                                                    class="icon-element icon-element-sm flex-shrink-0 bg-2 mr-3 text-white">
-                                                                    <i class="la la-lock"></i>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <h5>You changed password</h5>
-                                                                    <span
-                                                                        class="d-block lh-18 pt-1 text-gray fs-13">November
-                                                                        12, 2019</span>
-                                                                </div>
-                                                            </a>
-                                                            <a href="dashboard.html"
-                                                                class="media media-card align-items-center">
-                                                                <div
-                                                                    class="icon-element icon-element-sm flex-shrink-0 bg-3 mr-3 text-white">
-                                                                    <i class="la la-user"></i>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <h5>Your account has been created successfully
-                                                                    </h5>
-                                                                    <span
-                                                                        class="d-block lh-18 pt-1 text-gray fs-13">November
-                                                                        12, 2019</span>
-                                                                </div>
-                                                            </a>
+                                                            @endforelse
                                                         </div>
                                                     </li>
-                                                    <li class="menu-heading-block">
-                                                        <a href="dashboard.html" class="btn theme-btn w-100">Show
-                                                            All Notifications <i
-                                                                class="la la-arrow-right icon ml-1"></i></a>
-                                                    </li>
+                                                    @if(count($notifications ?? []) > 0)
+                                                        <li class="menu-heading-block">
+                                                            <a href="{{ route('user.dashboard') }}" class="btn theme-btn w-100">Show All Notifications <i class="la la-arrow-right icon ml-1"></i></a>
+                                                        </li>
+                                                    @endif
                                                 </ul>
                                             </li>
                                         </ul>

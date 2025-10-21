@@ -46,7 +46,7 @@
             </div><!-- end off-canvas-menu-close -->
             <div class="logo-box px-4">
                 <a href="/" target="_blank" class="logo"><img src="{{ asset('frontend/images/logo.png') }}"
-                        alt="logo"></a>
+                        alt="logo" style="max-height: 50px; width: auto;"></a>
             </div>
 
             @include('backend.user.section.sidebar')

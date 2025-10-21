@@ -24,10 +24,69 @@ class OrderController extends Controller
 
     public function order(OrderRequest $request)
     {
+        // Check if payment type is mock
+        if ($request->payment_type === 'mock') {
+            return $this->processMockPayment($request->validated());
+        }
 
         session()->put('stripe_data', $request->validated());
         // Call the service to process the payment
         return $this->paymentService->processPayment($request->validated());
+    }
+
+    /**
+     * Process mock payment for testing
+     */
+    private function processMockPayment($data)
+    {
+        $user = auth()->user();
+
+        // Calculate total amount
+        $totalAmount = array_sum($data['course_price']);
+
+        // Check if user has sufficient balance
+        if ($user->wallet_balance < $totalAmount) {
+            return back()->with('error', 'Insufficient wallet balance. You have $' . number_format($user->wallet_balance, 2) . ' but need $' . number_format($totalAmount, 2));
+        }
+
+        // Deduct from user wallet
+        $user->wallet_balance -= $totalAmount;
+        $user->save();
+
+        // Create payment record
+        $payment = Payment::create([
+            'transaction_id' => 'MOCK-' . strtoupper(uniqid()),
+            'name' => $data['first_name'] . ' ' . $data['last_name'],
+            'email' => $data['email'],
+            'total_amount' => $totalAmount,
+            'payment_type' => 'mock',
+            'invoice_no' => 'INV-' . strtoupper(uniqid()),
+            'order_date' => now()->toDateString(),
+            'order_month' => now()->format('F'),
+            'order_year' => now()->year,
+            'status' => 'completed',
+        ]);
+
+        // Create order records for each course
+        foreach ($data['course_id'] as $index => $courseId) {
+            Order::create([
+                'payment_id' => $payment->id,
+                'user_id' => $user->id,
+                'course_id' => $courseId,
+                'instructor_id' => $data['instructor_id'][$index],
+                'course_title' => $data['course_name'][$index],
+                'price' => $data['course_price'][$index],
+            ]);
+        }
+
+        // Delete cart data
+        $guestToken = request()->cookie('guest_token') ?? \Illuminate\Support\Str::uuid();
+        Cart::where('guest_token', $guestToken)->delete();
+
+        // Clear session
+        session()->forget(['coupon', 'stripe_data']);
+
+        return redirect('/')->with('success', 'Course purchased successfully using mock payment! Remaining balance: $' . number_format($user->wallet_balance, 2));
     }
 
      public function success(Request $request)
