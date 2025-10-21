@@ -4,7 +4,9 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminCourseController extends Controller
 {
@@ -22,8 +24,24 @@ class AdminCourseController extends Controller
         $course = Course::find($request->course_id);
 
         if ($course) {
+            $oldStatus = $course->status;
             $course->status = $request->status;
             $course->save();
+
+            // Send notification to instructor when course status changes
+            if ($oldStatus != $request->status) {
+                $statusText = $request->status == 1 ? 'approved' : 'rejected';
+                $statusIcon = $request->status == 1 ? '✅' : '❌';
+                
+                Notification::create([
+                    'type' => 'course_status_changed',
+                    'user_id' => $course->instructor_id,
+                    'title' => 'Course ' . ucfirst($statusText),
+                    'message' => $statusIcon . ' Your course "' . $course->course_name . '" has been ' . $statusText . ' by admin.',
+                    'link' => route('instructor.dashboard'),
+                    'is_read' => false
+                ]);
+            }
 
             return response()->json(['success' => true, 'message' => 'Course status updated successfully!']);
         }
