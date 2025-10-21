@@ -21,3 +21,82 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Storage and cache
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+/storage/debugbar/*
+!storage/framework/.gitkeep
+!storage/framework/cache/.gitkeep
+!storage/framework/sessions/.gitkeep
+!storage/framework/views/.gitkeep
+!storage/logs/.gitkeep
+
+# Uploaded files (ignore uploaded content but keep directories)
+/public/upload/user/*.png
+/public/upload/user/*.jpg
+/public/upload/user/*.jpeg
+/public/upload/user/*.gif
+/public/upload/user/*.svg
+/public/upload/user/*.webp
+/public/upload/course/*.png
+/public/upload/course/*.jpg
+/public/upload/course/*.jpeg
+/public/upload/course/*.gif
+/public/upload/course/*.svg
+/public/upload/course/*.webp
+/public/upload/category/*.png
+/public/upload/category/*.jpg
+/public/upload/category/*.jpeg
+/public/upload/category/*.gif
+/public/upload/category/*.svg
+/public/upload/category/*.webp
+/public/upload/slider/*.png
+/public/upload/slider/*.jpg
+/public/upload/slider/*.jpeg
+/public/upload/slider/*.gif
+/public/upload/slider/*.svg
+/public/upload/slider/*.webp
+/public/upload/site-info/*.png
+/public/upload/site-info/*.jpg
+/public/upload/site-info/*.jpeg
+/public/upload/site-info/*.gif
+/public/upload/site-info/*.svg
+/public/upload/site-info/*.webp
+
+# Database files
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+# OS files
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Test files
+.phpunit.cache
+/coverage
+test_*.html
+
+# Documentation (may contain sensitive setup info)
+BRANDING_CHANGES.md
+NOTIFICATION_SYSTEM_IMPLEMENTATION.md
+QUICK_TEST_GUIDE.md
+TESTING_COMPLETE.md
+TEST_REPORT.md
+VERIFICATION_CHECKLIST.md
+
+# Composer
+composer.phar
+composer.lock
