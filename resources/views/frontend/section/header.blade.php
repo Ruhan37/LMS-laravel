@@ -116,11 +116,11 @@ $categories = getCategories();
 
                                             @foreach($categories as $item)
                                             <li>
-                                                <a href="course-grid.html">{{$item->name}} <i
+                                                <a href="{{ route('category.courses', $item->slug) }}">{{$item->name}} <i
                                                         class="la la-angle-right"></i></a>
                                                 <ul class="sub-menu">
                                                     @foreach ($item['subcategory'] as $data)
-                                                    <li><a href="#">{{$data->name}}</a></li>
+                                                    <li><a href="{{ route('category.courses', $data->slug) }}">{{$data->name}}</a></li>
                                                     @endforeach
 
                                                 </ul>
@@ -133,7 +133,7 @@ $categories = getCategories();
                                     </li>
                                 </ul>
                             </div><!-- end menu-category -->
-                            <form method="post">
+                            <form method="get" action="{{ route('search') }}">
                                 <div class="form-group mb-0">
                                     <input class="form-control form--control pl-3" type="text" name="search"
                                         placeholder="Search for anything">
@@ -147,7 +147,7 @@ $categories = getCategories();
 
                                     </li>
                                     <li>
-                                        <a href="#"">All Courses </a>
+                                        <a href="{{ route('all.courses') }}">All Courses </a>
 
                                     </li>
                                     <li>
@@ -244,11 +244,11 @@ $categories = getCategories();
         </div><!-- end off-canvas-menu-close -->
         <ul class="generic-list-item off-canvas-menu-list pt-90px">
             <li>
-                <a href="#">Home</a>
+                <a href="{{ route('frontend.home') }}">Home</a>
 
             </li>
             <li>
-                <a href="#">cart</a>
+                <a href="{{ route('cart') }}">Cart</a>
 
             </li>
             <li>
@@ -256,16 +256,16 @@ $categories = getCategories();
 
             </li>
             <li>
-                <a href=""">All Courses</a>
+                <a href="{{ route('all.courses') }}">All Courses</a>
 
             </li>
             <li>
-                <a href="">Blog</a>
+                <a href="#">Blog</a>
 
             </li>
 
             <li>
-                <a href="">Contact Us</a>
+                <a href="#">Contact Us</a>
 
             </li>
 

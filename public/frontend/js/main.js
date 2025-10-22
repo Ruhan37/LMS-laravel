@@ -8,6 +8,18 @@ Author Email:   contact@techydevs.com
 (function ($) {
     "use strict";
 
+    /*====== Dark mode - Apply immediately to prevent flash ========*/
+    const currentTheme = localStorage.getItem("theme");
+
+    // Apply saved theme immediately on page load
+    if (currentTheme === "dark") {
+        document.body.classList.add("dark-theme");
+        document.body.classList.remove("light-theme");
+    } else if (currentTheme === "light") {
+        document.body.classList.add("light-theme");
+        document.body.classList.remove("dark-theme");
+    }
+
     var $window = $(window);
 
     $window.on('load', function (key, value){
@@ -742,28 +754,24 @@ Author Email:   contact@techydevs.com
             }, 2000)
         });
 
-        /*====== Dark mode js ========*/
+        /*====== Dark mode button handlers ========*/
         const themePicker = document.querySelectorAll(".theme-picker-btn");
-        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-        const currentTheme = localStorage.getItem("theme");
-
-        if (currentTheme === "dark") {
-            document.body.classList.toggle("dark-theme");
-        } else if (currentTheme === "light") {
-            document.body.classList.toggle("light-theme");
-        }
 
         themePicker.forEach(function (btn) {
             if (btn) {
                 btn.addEventListener("click", function () {
-                    if (prefersDarkScheme.matches) {
-                        document.body.classList.toggle("light-theme");
-                        var theme = document.body.classList.contains("light-theme") ? "light" : "dark";
-                    } else {
-                        document.body.classList.toggle("dark-theme");
-                        var theme = document.body.classList.contains("dark-theme") ? "dark" : "light";
+                    // Check which button was clicked
+                    if (btn.classList.contains("dark-mode-btn")) {
+                        // Switch to dark mode
+                        document.body.classList.add("dark-theme");
+                        document.body.classList.remove("light-theme");
+                        localStorage.setItem("theme", "dark");
+                    } else if (btn.classList.contains("light-mode-btn")) {
+                        // Switch to light mode
+                        document.body.classList.add("light-theme");
+                        document.body.classList.remove("dark-theme");
+                        localStorage.setItem("theme", "light");
                     }
-                    localStorage.setItem("theme", theme);
                 });
             }
         });

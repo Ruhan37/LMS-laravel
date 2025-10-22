@@ -88,7 +88,8 @@
 
 
 
-        <li class="{{ setSidebar(['admin.slider*', 'admin.info*', 'admin.partner*', 'admin.subscriber*', 'admin.site-setting*', 'admin.page-setting*']) }}">
+        {{-- Application Settings Section - Hidden --}}
+        {{-- <li class="{{ setSidebar(['admin.slider*', 'admin.info*', 'admin.partner*', 'admin.subscriber*', 'admin.site-setting*', 'admin.page-setting*']) }}">
             <a href="javascript:;" class="has-arrow">
 
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -115,12 +116,13 @@
 
 
             </ul>
-        </li>
+        </li> --}}
 
 
 
 
-         <li>
+         {{-- Config Setting Section - Hidden --}}
+         {{-- <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
@@ -141,7 +143,7 @@
 
 
             </ul>
-        </li>
+        </li> --}}
 
 
 

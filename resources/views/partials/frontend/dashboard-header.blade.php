@@ -40,7 +40,7 @@
                                                         <ul class="cart-dropdown-menu after-none" id="enrolled-courses-dropdown">
                                                             <!-- Dynamic enrolled courses will be loaded here via AJAX -->
                                                             <li>
-                                                                <a href="{{ route('my-courses') }}" class="btn theme-btn w-100">Go to my course <i class="la la-arrow-right icon ml-1"></i></a>
+                                                                <a href="{{ route('user.my.courses') }}" class="btn theme-btn w-100">Go to my courses <i class="la la-arrow-right icon ml-1"></i></a>
                                                             </li>
                                                         </ul>
                                                     </li>
@@ -161,15 +161,15 @@
                                                     <li>
                                                         <ul class="generic-list-item">
                                                             @if(auth()->user()->role === 'user')
-                                                                <li><a href="{{ route('my-courses') }}"><i class="la la-file-video-o mr-1 text-gray"></i> My courses</a></li>
-                                                                <li><a href="{{ route('wishlist') }}"><i class="la la-heart-o mr-1 text-gray"></i> My wishlist</a></li>
+                                                                <li><a href="{{ route('user.my.courses') }}"><i class="la la-file-video-o mr-1 text-gray"></i> My courses</a></li>
+                                                                <li><a href="{{ route('user.wishlist.index') }}"><i class="la la-heart-o mr-1 text-gray"></i> My wishlist</a></li>
                                                                 <li><a href="{{ route('cart') }}"><i class="la la-shopping-cart mr-1 text-gray"></i> My cart</a></li>
                                                             @elseif(auth()->user()->role === 'instructor')
-                                                                <li><a href="{{ route('instructor.courses') }}"><i class="la la-file-video-o mr-1 text-gray"></i> My courses</a></li>
-                                                                <li><a href="{{ route('instructor.earnings') }}"><i class="la la-dollar mr-1 text-gray"></i> Earnings</a></li>
+                                                                <li><a href="{{ route('instructor.course.index') }}"><i class="la la-file-video-o mr-1 text-gray"></i> My courses</a></li>
+                                                                <li><a href="{{ route('instructor.dashboard') }}"><i class="la la-dollar mr-1 text-gray"></i> Earnings</a></li>
                                                             @endif
-                                                            <li><a href="{{ route('dashboard') }}"><i class="la la-dashboard mr-1 text-gray"></i> Dashboard</a></li>
-                                                            <li><a href="{{ route('profile.edit') }}"><i class="la la-user mr-1 text-gray"></i> Edit profile</a></li>
+                                                            <li><a href="{{ route('user.dashboard') }}"><i class="la la-dashboard mr-1 text-gray"></i> Dashboard</a></li>
+                                                            <li><a href="{{ route('user.profile') }}"><i class="la la-user mr-1 text-gray"></i> Edit profile</a></li>
                                                             <li>
                                                                 <div class="section-block"></div>
                                                             </li>

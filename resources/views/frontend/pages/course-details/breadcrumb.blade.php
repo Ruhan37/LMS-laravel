@@ -19,16 +19,19 @@
                         {{ $course['label'] }}</h6>
 
                     <div class="rating-wrap d-flex flex-wrap align-items-center">
+                        @php
+                            $enrollmentCount = $course->orders()->count();
+                        @endphp
+                        @if($enrollmentCount > 0)
                         <div class="review-stars">
-                            <span class="rating-number">4.4</span>
-                            <span class="la la-star"></span>
-                            <span class="la la-star"></span>
-                            <span class="la la-star"></span>
-                            <span class="la la-star"></span>
-                            <span class="la la-star-o"></span>
+                            <span class="la la-user"></span>
                         </div>
-                        <span class="rating-total pl-1">(20,230 ratings)</span>
-                        <span class="student-total pl-2">540,815 students</span>
+                        <span class="student-total pl-2">{{ number_format($enrollmentCount) }} {{ $enrollmentCount == 1 ? 'student' : 'students' }}</span>
+                        @else
+                        <div class="review-stars">
+                            <span class="badge badge-info">New Course</span>
+                        </div>
+                        @endif
                     </div>
                 </div><!-- end d-flex -->
 

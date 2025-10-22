@@ -30,7 +30,7 @@ class WishlistController extends Controller
         $user_id = Auth::user()->id;
         $wishlist = Wishlist::where('user_id', $user_id)->with('course', 'course.user')->paginate(6);
 
-        $html = view('backend.user.section.partials.wishlist', compact('wishlist'))->render();
+        $html = view('backend.user.section.partials.wishlist-page', compact('wishlist'))->render();
 
         return response()->json([
             'status' => 'success',

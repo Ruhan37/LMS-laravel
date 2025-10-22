@@ -163,6 +163,8 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
 
 Route::get('/', [FrontendDashboardController::class, 'home'])->name('frontend.home');
 Route::get('/course-details/{slug}', [FrontendDashboardController::class, 'view'])->name('course-details');
+Route::get('/courses', [FrontendDashboardController::class, 'allCourses'])->name('all.courses');
+Route::get('/category/{slug}', [FrontendDashboardController::class, 'categoryCorses'])->name('category.courses');
 Route::get('/search', [FrontendDashboardController::class, 'search'])->name('search');
 
 /* wishlist controller  */
@@ -179,7 +181,7 @@ Route::post('/remove/cart', [CartController::class, 'removeCart']);
 
 
 /*  Checkout */
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('auth');
 /* Coupon Apply    */
 Route::post('/apply-coupon', [CouponController::class, 'applyCoupon']);
 

@@ -213,21 +213,21 @@
                                                         <ul class="generic-list-item">
 
                                                             <li>
-                                                                <a href="#">
+                                                                <a href="{{ route('user.my.courses') }}">
                                                                     <i class="la la-file-video-o mr-1"></i> My
                                                                     courses
                                                                 </a>
                                                             </li>
 
                                                             <li>
-                                                                <a href="">
+                                                                <a href="{{ route('cart') }}">
                                                                     <i class="la la-shopping-basket mr-1"></i> My
                                                                     cart
                                                                 </a>
                                                             </li>
 
                                                             <li>
-                                                                <a href="#">
+                                                                <a href="{{ route('user.wishlist.index') }}">
                                                                     <i class="la la-heart-o mr-1"></i> My wishlist
                                                                 </a>
                                                             </li>
@@ -263,23 +263,6 @@
                                                             <li>
                                                                 <div class="section-block"></div>
                                                             </li>
-
-                                                            <li>
-                                                                <a href="#" class="position-relative">
-                                                                    <span
-                                                                        class="fs-17 font-weight-semi-bold d-block">Aduca
-                                                                        for Business</span>
-                                                                    <span
-                                                                        class="lh-20 d-block fs-14 text-gray">Bring
-                                                                        learning to your company</span>
-                                                                    <span
-                                                                        class="position-absolute top-0 right-0 mt-3 mr-3 fs-18 text-gray">
-                                                                        <i class="la la-external-link"></i>
-                                                                    </span>
-                                                                </a>
-                                                            </li>
-
-
 
                                                         </ul>
                                                     </li>
@@ -322,13 +305,6 @@
             <li><a href="student-detail.html">Public profile</a></li>
             <li><a href="dashboard-settings.html">Edit profile</a></li>
             <li><a href="index.html">Log out</a></li>
-        </ul>
-        <h4 class="off-canvas-menu-heading pt-20px">More from Aduca</h4>
-        <ul class="generic-list-item off-canvas-menu-list pt-1">
-            <li><a href="for-business.html">Aduca for Business</a></li>
-            <li><a href="#">Get the app</a></li>
-            <li><a href="invite.html">Invite friends</a></li>
-            <li><a href="contact.html">Help</a></li>
         </ul>
         <div class="theme-picker d-flex align-items-center justify-content-center mt-4 px-3">
             <button

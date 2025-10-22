@@ -16,6 +16,17 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => RoleMiddleware::class
         ]);
+
+        // Redirect guests to login when accessing protected routes
+        $middleware->redirectGuestsTo(fn () => route('login'));
+
+        // Global Middleware - Runs on every request
+        // CSRF Protection is enabled globally by default
+        // This ensures all POST, PUT, PATCH, DELETE requests have valid CSRF token
+        $middleware->validateCsrfTokens(except: [
+            // Add routes to exclude from CSRF protection (if needed)
+            // Example: 'webhook/*', 'api/*'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

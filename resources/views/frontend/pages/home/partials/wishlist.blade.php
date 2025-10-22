@@ -16,10 +16,12 @@
 
 
     @empty
-        <li>No items in the wishlist.</li>
+        <li class="text-center py-3">No items in the wishlist.</li>
     @endforelse
 
+    @if($wishlistItems->count() > 0)
     <li>
-        <a href="#" class="btn theme-btn w-100">Check Wishlist <i class="la la-arrow-right icon ml-1"></i></a>
+        <a href="{{ route('user.wishlist.index') }}" class="btn theme-btn w-100">Check Wishlist <i class="la la-arrow-right icon ml-1"></i></a>
     </li>
+    @endif
 </ul>

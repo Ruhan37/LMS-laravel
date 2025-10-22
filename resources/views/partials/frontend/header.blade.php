@@ -59,7 +59,7 @@
                     <div class="col-lg-2">
                         <div class="logo-box">
                             <a href="{{ route('frontend.home') }}" class="logo">
-                                <img src="{{ asset('images/logo.png') }}" alt="logo">
+                                <img src="{{ asset('frontend/images/logo.png') }}" alt="logo" style="max-height: 50px; width: auto;">
                             </a>
                             <div class="user-btn-action">
                                 <div class="search-menu-toggle icon-element icon-element-sm shadow-sm mr-2" data-toggle="tooltip" data-placement="top" title="Search">
@@ -84,11 +84,11 @@
                                             @if(function_exists('getCategories'))
                                                 @foreach(getCategories() as $category)
                                                 <li>
-                                                    <a href="#">{{ $category->name }} <i class="la la-angle-right"></i></a>
+                                                    <a href="{{ route('category.courses', $category->slug) }}">{{ $category->name }} <i class="la la-angle-right"></i></a>
                                                     @if($category->subcategory->count() > 0)
                                                     <ul class="sub-menu">
                                                         @foreach($category->subcategory as $subcat)
-                                                        <li><a href="#">{{ $subcat->name }}</a></li>
+                                                        <li><a href="{{ route('category.courses', $subcat->slug) }}">{{ $subcat->name }}</a></li>
                                                         @endforeach
                                                     </ul>
                                                     @endif
@@ -99,7 +99,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <form method="get" action="{{ route('frontend.home') }}">
+                            <form method="get" action="{{ route('search') }}">
                                 <div class="form-group mb-0">
                                     <input class="form-control form--control pl-3" type="text" name="search" placeholder="Search for anything">
                                     <span class="la la-search search-icon"></span>
@@ -127,7 +127,7 @@
                                             <i class="la la-heart-o"></i>
                                             <span class="product-count" id="wishlist-total">0</span>
                                         </p>
-                                        <ul class="cart-dropdown-menu">
+                                        <ul class="cart-dropdown-menu" id="wishlist-course">
                                             <!-- Wishlist items loaded via AJAX -->
                                         </ul>
                                     </li>
@@ -234,11 +234,11 @@
         @if(function_exists('getCategories'))
             @foreach(getCategories() as $category)
             <li>
-                <a href="#">{{ $category->name }}</a>
+                <a href="{{ route('category.courses', $category->slug) }}">{{ $category->name }}</a>
                 @if($category->subcategory->count() > 0)
                 <ul class="sub-menu">
                     @foreach($category->subcategory as $subcat)
-                    <li><a href="#">{{ $subcat->name }}</a></li>
+                    <li><a href="{{ route('category.courses', $subcat->slug) }}">{{ $subcat->name }}</a></li>
                     @endforeach
                 </ul>
                 @endif

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Cart;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,24 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
+        // Merge guest cart items with user's cart after login
+        $guestToken = $request->cookie('guest_token');
+        if ($guestToken) {
+            Cart::where('guest_token', $guestToken)->update([
+                'user_id' => $user->id,
+                'guest_token' => null
+            ]);
+        }
+
+        // Check if there's an intended URL (like checkout page)
+        $intendedUrl = session()->pull('url.intended');
+
+        if ($intendedUrl) {
+            // If user was trying to access a protected page, redirect there
+            return redirect($intendedUrl);
+        }
+
+        // Otherwise, redirect based on user role
         if ($user->isAdmin()) {
             return redirect('/admin/dashboard');
         } elseif ($user->isInstructor()) {

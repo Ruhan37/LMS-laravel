@@ -2,8 +2,15 @@
 
 @section('content')
 
+<div class="row mb-4">
+    <div class="col-12">
+        <h3 class="fs-22 font-weight-semi-bold">Dashboard Overview</h3>
+        <p class="text-muted">Welcome to your learning dashboard</p>
+    </div>
+</div>
+
 <div class="row">
-    <div class="col-lg-4 responsive-column-half">
+    <div class="col-lg-3 col-md-6 responsive-column-half">
         <div class="card card-item dashboard-info-card">
             <div class="card-body d-flex align-items-center">
                 <div class="icon-element flex-shrink-0 bg-1 text-white">
@@ -32,8 +39,8 @@
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->
-    </div><!-- end col-lg-4 -->
-    <div class="col-lg-4 responsive-column-half">
+    </div><!-- end col-lg-3 -->
+    <div class="col-lg-3 col-md-6 responsive-column-half">
         <div class="card card-item dashboard-info-card">
             <div class="card-body d-flex align-items-center">
                 <div class="icon-element flex-shrink-0 bg-4 text-white">
@@ -47,8 +54,8 @@
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->
-    </div><!-- end col-lg-4 -->
-    <div class="col-lg-4 responsive-column-half">
+    </div><!-- end col-lg-3 -->
+    <div class="col-lg-3 col-md-6 responsive-column-half">
         <div class="card card-item dashboard-info-card">
             <div class="card-body d-flex align-items-center">
                 <div class="icon-element flex-shrink-0 bg-2 text-white">
@@ -98,8 +105,8 @@
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->
-    </div><!-- end col-lg-4 -->
-    <div class="col-lg-4 responsive-column-half">
+    </div><!-- end col-lg-3 -->
+    <div class="col-lg-3 col-md-6 responsive-column-half">
         <div class="card card-item dashboard-info-card">
             <div class="card-body d-flex align-items-center">
                 <div class="icon-element flex-shrink-0 bg-3 text-white">
@@ -144,24 +151,13 @@
                     </svg>
                 </div>
                 <div class="pl-4">
-                    <p class="card-text fs-18">Total Purchase Amount</p>
+                    <p class="card-text fs-18">Total Purchase</p>
                     <h5 class="card-title pt-2 fs-26">${{ number_format($totalPurchaseAmount ?? 0, 2) }}</h5>
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->
-    </div><!-- end col-lg-4 -->
-
-
+    </div><!-- end col-lg-3 -->
 </div><!-- end row -->
 
-
 @endsection
-
-@push('scripts')
-    <!-- Script inclusion -->
-    <script src="{{asset('customjs/user/wishlist.js')}}"></script>
-    <script src="{{asset('customjs/cart/index.js')}}"></script>
-@endpush
-
-
 

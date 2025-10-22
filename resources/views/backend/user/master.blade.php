@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Aduca - Professional LMS</title>
+    <title>Cyduca - Learn Security</title>
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -15,7 +15,7 @@
         rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="icon" sizes="16x16" href="{{ asset('frontend/images/favicon.png') }}">
+    <link rel="icon" sizes="16x16" href="{{ asset('frontend/images/logo.png') }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -58,20 +58,9 @@
             </div>
 
             <div class="container-fluid">
-
                 @include('backend.user.section.breadcrumb')
-
                 @yield('content')
-
-
-
-
-
             </div>
-
-
-
-
         </div><!-- end dashboard-content-wrap -->
     </section><!-- end dashboard-area -->
 

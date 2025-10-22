@@ -5,7 +5,7 @@
                 <img src="{{ asset($course->course_image) }}"
                     data-src="{{ asset($course->course_image) }}" alt="course-img"
                     class="w-100 rounded lazy">
-                    
+
                 <div class="preview-course-video-content">
                     <div class="overlay"></div>
                     <div class="play-button">

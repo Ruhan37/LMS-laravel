@@ -3,7 +3,8 @@
 
 <head>
     @include('backend.section.link')
-    <title>LMS - Instructor Dashboard</title>
+    <title>Cyduca - Instructor Dashboard</title>
+    <link rel="icon" sizes="16x16" href="{{ asset('frontend/images/logo.png') }}">
 </head>
 
 <body>

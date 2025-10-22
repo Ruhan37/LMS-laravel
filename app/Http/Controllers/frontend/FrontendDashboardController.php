@@ -20,7 +20,7 @@ class FrontendDashboardController extends Controller
         $all_sliders = Slider::all();
         $all_info = InfoBox::all();
 
-        $all_categories = Category::inRandomOrder()->limit(6)->get();
+        $all_categories = Category::withCount('course')->inRandomOrder()->limit(6)->get();
         $categories = Category::all();
         $course_category = Category::with('course', 'course.user', 'course.course_goal')->get();
 
@@ -62,6 +62,49 @@ class FrontendDashboardController extends Controller
         return view('frontend.pages.course-details.index', compact('course', 'total_lecture', 'course_content', 'similarCourses', 'all_category', 'more_course_instructor', 'total_minutes', 'total_lecture_duration'));
     }
 
+    public function allCourses()
+    {
+        // Get all active courses
+        $courses = Course::where('status', 1)
+            ->with('category', 'user')
+            ->paginate(12);
+
+        $categories = Category::all();
+        $searchTerm = 'All Courses';
+
+        return view('frontend.pages.search.index', compact('courses', 'searchTerm', 'categories'));
+    }
+
+    public function categoryCorses($slug)
+    {
+        // Find category or subcategory by slug
+        $category = Category::where('slug', $slug)->first();
+        $subcategory = \App\Models\SubCategory::where('slug', $slug)->first();
+
+        if ($category) {
+            // Get courses by category
+            $courses = Course::where('status', 1)
+                ->where('category_id', $category->id)
+                ->with('category', 'subcategory', 'user')
+                ->paginate(12);
+            $searchTerm = $category->name;
+        } elseif ($subcategory) {
+            // Get courses by subcategory
+            $courses = Course::where('status', 1)
+                ->where('subcategory_id', $subcategory->id)
+                ->with('category', 'subcategory', 'user')
+                ->paginate(12);
+            $searchTerm = $subcategory->name;
+        } else {
+            // If not found, redirect to all courses
+            return redirect()->route('all.courses');
+        }
+
+        $categories = Category::all();
+
+        return view('frontend.pages.search.index', compact('courses', 'searchTerm', 'categories'));
+    }
+
     public function search(Request $request)
     {
         $searchTerm = $request->input('search');
@@ -70,14 +113,20 @@ class FrontendDashboardController extends Controller
             return redirect()->route('frontend.home');
         }
 
-        // Search courses by name, title, or description
+        // Search courses by name, title, description, category, or subcategory
         $courses = Course::where('status', 1)
             ->where(function($query) use ($searchTerm) {
                 $query->where('course_name', 'like', '%' . $searchTerm . '%')
                       ->orWhere('course_title', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('description', 'like', '%' . $searchTerm . '%');
+                      ->orWhere('description', 'like', '%' . $searchTerm . '%')
+                      ->orWhereHas('category', function($q) use ($searchTerm) {
+                          $q->where('name', 'like', '%' . $searchTerm . '%');
+                      })
+                      ->orWhereHas('subcategory', function($q) use ($searchTerm) {
+                          $q->where('name', 'like', '%' . $searchTerm . '%');
+                      });
             })
-            ->with('category', 'user')
+            ->with('category', 'subcategory', 'user')
             ->paginate(12);
 
         $categories = Category::all();

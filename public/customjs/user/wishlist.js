@@ -2,12 +2,17 @@
 
 $(document).ready(function () {
 
-    // Initial load
-    loadWishlist();
-
     const wishlistContainer = $('#wishlist-container');
     const paginationBox = $('#pagination-box');
     const resultsInfo = $('.results-info');
+
+    // Only run wishlist code if wishlist container exists
+    if (wishlistContainer.length === 0) {
+        return;
+    }
+
+    // Initial load
+    loadWishlist();
 
     // Function to load wishlist items
     function loadWishlist(page = 1) {
@@ -202,13 +207,6 @@ $(document).ready(function () {
         });
     });
 
-
-
-
-    // Initial load
-    loadWishlist();
-
-    
 });
 
 

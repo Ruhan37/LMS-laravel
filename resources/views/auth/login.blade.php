@@ -33,19 +33,18 @@
                 <div class="card card-item">
                     <div class="card-body">
                         <h3 class="card-title text-center fs-24 lh-35 pb-4">Login to Your Account!</h3>
+
+                        @if(request()->has('redirect') || session('url.intended'))
+                        <div class="alert alert-info text-center" role="alert">
+                            <i class="la la-info-circle mr-1"></i>
+                            Please login to continue with checkout
+                        </div>
+                        @endif
+
                         <div class="section-block"></div>
 
                         <form method="post" class="pt-4" action="{{route('login')}}">
                             @csrf
-                            <div class="d-flex flex-wrap align-items-center pb-4">
-
-                                 <a href="{{route('auth.google')}}" class="btn theme-btn flex-grow-1 mx-2 mb-2"><i class="la la-google mr-2"></i>Google</a>
-
-
-                            </div>
-                            <div class="text-center pt-3 pb-4">
-                                <div class="icon-element icon-element-md fs-25 shadow-sm">Or</div>
-                            </div>
                             <div class="input-box">
                                 <label class="label-text">Email or Username</label>
                                 <div class="form-group">

@@ -3,7 +3,8 @@
 
 <head>
     @include('backend.section.link')
-    <title>LMS - Admin Dashboard</title>
+    <title>Cyduca - Admin Dashboard</title>
+    <link rel="icon" sizes="16x16" href="{{ asset('frontend/images/logo.png') }}">
 
     <style>
         /* ডিফল্ট ভাবে থিম হাইড করুন */

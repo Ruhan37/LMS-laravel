@@ -75,15 +75,19 @@
                                 <a href="#">{{ $course->user->name ?? 'Unknown Instructor' }}</a>
                             </p>
                             <div class="rating-wrap d-flex align-items-center py-2">
+                                @php
+                                    $enrollmentCount = $course->orders()->count();
+                                @endphp
+                                @if($enrollmentCount > 0)
                                 <div class="review-stars">
-                                    <span class="rating-number">4.4</span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star-o"></span>
+                                    <span class="la la-user"></span>
                                 </div>
-                                <span class="rating-total pl-1">(20,230)</span>
+                                <span class="rating-total pl-1">({{ number_format($enrollmentCount) }} {{ $enrollmentCount == 1 ? 'student' : 'students' }})</span>
+                                @else
+                                <div class="review-stars">
+                                    <span class="badge badge-info">New Course</span>
+                                </div>
+                                @endif
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">

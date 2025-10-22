@@ -30,7 +30,9 @@
                             @foreach ($data['course'] as $course)
                                 <div class="col-lg-4 responsive-column-half">
                                     <div class="card card-item card-preview"
-                                        data-tooltip-content="#{{ $course->course_name_slug }}">
+                                        data-tooltip-content="#{{ $course->course_name_slug }}"
+                                        onclick="window.location='{{ route('course-details', $course->course_name_slug) }}'"
+                                        style="cursor: pointer;">
                                         <div class="card-image">
                                             <a href="{{ route('course-details', $course->course_name_slug) }}"
                                                 class="d-block">
@@ -74,15 +76,19 @@
                                                 </a>
                                             </p>
                                             <div class="rating-wrap d-flex align-items-center py-2">
+                                                @php
+                                                    $enrollmentCount = $course->orders()->count();
+                                                @endphp
+                                                @if($enrollmentCount > 0)
                                                 <div class="review-stars">
-                                                    <span class="rating-number">4.4</span>
-                                                    <span class="la la-star"></span>
-                                                    <span class="la la-star"></span>
-                                                    <span class="la la-star"></span>
-                                                    <span class="la la-star"></span>
-                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-user"></span>
                                                 </div>
-                                                <span class="rating-total pl-1">(20,230)</span>
+                                                <span class="rating-total pl-1">({{ number_format($enrollmentCount) }} {{ $enrollmentCount == 1 ? 'student' : 'students' }})</span>
+                                                @else
+                                                <div class="review-stars">
+                                                    <span class="badge badge-info">New Course</span>
+                                                </div>
+                                                @endif
                                             </div><!-- end rating-wrap -->
                                             <div class="d-flex justify-content-between align-items-center">
 
@@ -133,7 +139,7 @@
 
             </div><!-- end tab-content -->
             <div class="more-btn-box mt-4 text-center">
-                <a href="course-grid.html" class="btn theme-btn">Browse all Courses <i
+                <a href="{{ route('all.courses') }}" class="btn theme-btn">Browse all Courses <i
                         class="la la-arrow-right icon ml-1"></i></a>
             </div><!-- end more-btn-box -->
         </div><!-- end container -->
